@@ -7,7 +7,7 @@ import sendemail as se
 
 def timecheck( lst_ping_time):
     timenow = dt.datetime.now(pytz.timezone('America/Chicago')).replace(tzinfo=None)
-    if timenow - lst_ping_time > dt.timedelta(0, 120):
+    if timenow - lst_ping_time > dt.timedelta(minutes=30):
         return False
     else:
         return True

@@ -71,10 +71,8 @@ def job_check(readconnectioninfo, writeconnectioninfo, bkpstr):
                             desc_msg_lst.append(desc_msg_tpl)
                             mailstr += 'jobchainId: {}'.format(desc_msg_tpl[0]) + ':\n' + desc_msg_tpl[1] + '\n\n'
                     sendemail.sendemail('Job with important tag failed {}'.format(mailtitle), mailstr,
-                                        ['jianwei.xiao2@searshc.com',
-                                         'jianweix@hotmail.com',
+                                        [
                                          'yiming.li2@searshc.com',
-                                         'wenxue.zhang@searshc.com',
                                          ])
 
     finally:

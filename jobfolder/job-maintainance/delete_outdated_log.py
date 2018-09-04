@@ -51,7 +51,8 @@ def del_outdate_log(readconnectioninfo, writeconnectioninfo):
     timenow = dt.datetime \
         .now(pytz.timezone('America/Chicago')) \
         .replace(tzinfo=None, microsecond=0)
-    five_min_ago_str = (timenow - dt.timedelta(seconds=10 * 60)).strftime('%Y-%m-%d %H:%M:%S')
+    # five_min_ago_str = (timenow - dt.timedelta(seconds=10 * 60)).strftime('%Y-%m-%d %H:%M:%S')
+    six_hours_ago_str = (timenow - dt.timedelta(hours=6)).strftime('%Y-%m-%d %H:%M:%S')
     selejobidquery = "SELECT id FROM schedulerDB.jobchain_table WHERE tag='scheduler';"
     readcursor.execute(selejobidquery)
     tempans = readcursor.fetchall()
@@ -63,7 +64,7 @@ def del_outdate_log(readconnectioninfo, writeconnectioninfo):
     idlststr = ', '.join([str(tt) for tt in idlst])
     writecursor = writedb.cursor()
     query = "DELETE FROM schedulerDB.jobchain_lst_run WHERE jobchain_id in ({}) " \
-            "AND last_run_start < \'{}\'".format(idlststr, five_min_ago_str)
+            "AND last_run_start < \'{}\'".format(idlststr, six_hours_ago_str)
     writecursor.execute(query)
     writedb.commit()
     writecursor.close()
