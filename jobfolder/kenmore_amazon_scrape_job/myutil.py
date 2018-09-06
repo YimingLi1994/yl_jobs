@@ -45,3 +45,13 @@ def save_csv_to_sto(fullpath, projname, df, retry=5):
             time.sleep(1)
             continue
     print('Done')
+
+if __name__ =='__main__':
+    import pandas as pd
+    df = pd.DataFrame({'a':[1,2], 'b':[3,4]})
+    save_csv_to_sto('yl-crawl/upload_test.csv',
+                           'yl3573-214601', df)
+
+    df_new = read_csv_from_sto('yl-crawl/upload_test.csv',
+                           'yl3573-214601')
+    print(df_new)

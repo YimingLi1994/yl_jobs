@@ -1,5 +1,4 @@
 import pandas as pd
-from bs4 import BeautifulSoup
 import requests
 from lxml import etree
 from io import StringIO, BytesIO
@@ -13,18 +12,14 @@ import uuid
 import time
 
 def job_prep():
-    lst_mapping_tbl = pd.read_gbq('''SELECT table_id FROM [shc-pricing-dev:jx_crawl.__TABLES__] 
-         WHERE REGEXP_MATCH(table_id, r'^amazon_kenmore_scrape_mapping_[0-9]+')
-         ORDER BY creation_time DESC LIMIT 1''', 'shc-pricing-dev').values[0, 0]
 
     sears_querystr = '''\
     select sears_pid  pid   from
-    [shc-pricing-dev:jx_crawl.{}]
+    [yl3573-214601:scraping.kenmore_amazon_match]
     group by 1
-    '''.format(lst_mapping_tbl)
+    '''
 
-    sears_df = pd.read_gbq(sears_querystr, 'shc-pricing-dev')
-    # amz_df = pd.read_gbq(amz_querystr, 'shc-pricing-dev')
+    sears_df = pd.read_gbq(sears_querystr, 'yl3573-214601')
     name = str(uuid.uuid4())[-5:]
 
     df_all = pd.DataFrame()
@@ -48,8 +43,7 @@ def job_prep():
 
     df_shuffled = json_df.sample(frac=1)
 
-    # myutil.save_csv_to_sto('crawl_job/crawl_job_test_server_{}.csv'.format(name), 'shc-price-rec-prod', df_shuffled)
-    myutil.save_csv_to_sto('crawl_job/crawl_job_site_map_walk_{}.csv'.format(name), 'shc-price-rec-prod', df_shuffled)
+    myutil.save_csv_to_sto('yl-crawl/crawl_job_site_map_walk_{}.csv'.format(name), 'yl3573-214601', df_shuffled)
 
 
     def get_url(sitemap_link):
@@ -109,8 +103,8 @@ def job_prep():
 
 
     name = str(uuid.uuid4())[-5:]
-    myutil.save_csv_to_sto('crawl_job/crawl_job_{}_{}.csv'.format('scraper_general', name),
-                           'shc-price-rec-prod', df_shuffled)
+    myutil.save_csv_to_sto('yl-crawl/crawl_job_{}_{}.csv'.format('scraper_general', name),
+                           'yl3573-214601', df_shuffled)
 
 
 if __name__ == '__main__':

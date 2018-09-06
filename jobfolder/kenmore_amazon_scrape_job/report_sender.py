@@ -316,15 +316,7 @@ def makereport():
     emailsender.sendemail(titlestr='Kenmore Web Intelligence',
                           msgstr=new_str,
                           bcclst=[
-                                'jianwei.xiao2@searshc.com',
                                 'yiming.li2@searshc.com',
-                                'Sashi.Marella@searshc.com',
-                                'wenxue.zhang@searshc.com','Pritam.Baxi@searshc.com',
-                                'Rishi.Potdar@searshc.com',
-                                'Jeremy.Person@kcdbrands.com',
-                                'KenmoreScrapeReporting@searshc.com',
-                                'harsha.chandar2@searshc.com',
-                                'harlem125_platform@searshc.com'
                           ])
 
 if __name__ == '__main__':
