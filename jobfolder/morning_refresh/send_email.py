@@ -27,7 +27,7 @@ def sendemail(titlestr, msgstr, receverlst=None, cclst=None, bcclst=None, attach
     pic_attachmentlst = [] if pic_attachmentlst is None else pic_attachmentlst
 
     msg = MIMEMultipart()
-    msg['From'] = "DPJOBSCHEDULER@gmail.com"
+    msg['From'] = "ylscheduleremail@gmail.com"
     msg['Date'] = formatdate(localtime=True)
     body = MIMEText(msgstr, 'html')
     msg.attach(body)
@@ -55,7 +55,7 @@ def sendemail(titlestr, msgstr, receverlst=None, cclst=None, bcclst=None, attach
     s.ehlo()
     s.starttls()
     s.ehlo()
-    s.login('DPJOBSCHEDULER@gmail.com', 'sears123$')
+    s.login('ylscheduleremail@gmail.com', 'eijoifazbjjfsdcl')
     s.sendmail(msg["From"], totallst, msg.as_string())
     s.quit()
 

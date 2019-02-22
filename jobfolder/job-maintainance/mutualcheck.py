@@ -7,14 +7,14 @@ import sendemail as se
 
 def timecheck( lst_ping_time):
     timenow = dt.datetime.now(pytz.timezone('America/Chicago')).replace(tzinfo=None)
-    if timenow - lst_ping_time > dt.timedelta(minutes=30):
+    if timenow - lst_ping_time > dt.timedelta(minutes=5):
         return False
     else:
         return True
 
 
 def bkpcheckmain():
-    connectioninfo = ["35.224.121.101", 3306, "yiming", "yiming", "schedulerDB"] # main mysql
+    connectioninfo = ["130.211.206.49", 3306, "yiming", "yiming123", "schedulerDB"] # main mysql
     sqlstr = "SELECT debugmode, job_last_ping_time FROM schedulerDB.realtime_status WHERE name='main';"
     db = MySQLdb.connect(host=connectioninfo[0],
                          port=connectioninfo[1],
@@ -28,7 +28,7 @@ def bkpcheckmain():
         return
     if timecheck(retlst[1]) is False:
         se.sendemail("error!","Hi man, Main scheduler is out of order!",
-                     ['yiming.li2@searshc.com',
+                     ['yiming@fcreekcapital.com',
                       ])
         ####Turn to debug
         cursor.execute(
@@ -40,7 +40,7 @@ def bkpcheckmain():
 
 
 def maincheckbkp():
-    connectioninfo = ["104.197.118.95", 3306, "yiming", "yiming", "schedulerDB"]
+    connectioninfo = ["146.148.79.143", 3306, "yiming", "yiming123", "schedulerDB"]
     sqlstr = "SELECT debugmode,  job_last_ping_time FROM schedulerDB.realtime_status WHERE name='bkp';"
     db = MySQLdb.connect(host=connectioninfo[0],
                          port=connectioninfo[1],
@@ -54,7 +54,7 @@ def maincheckbkp():
         return
     if timecheck(retlst[1]) is False:
         se.sendemail("error!","Hi man, Bkp scheduler is out of order!",
-                     ['yiming.li2@searshc.com',
+                     ['yiming@fcreekcapital.com',
                       ])
         ####Turn to debug
         cursor.execute(

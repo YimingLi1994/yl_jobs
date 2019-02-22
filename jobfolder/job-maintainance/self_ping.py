@@ -29,9 +29,9 @@ if __name__ == '__main__':
             raise ValueError('Unknow parameter {}'.format(sys.argv[1]))
 
     if bkp_flag == 1: #bkp ping bkp
-        connectioninfo = ["104.197.118.95", 3306, "yiming", "yiming", "schedulerDB"]
+        connectioninfo = ["146.148.79.143", 3306, "yiming", "yiming123", "schedulerDB"]
         bkpstr='bkp'
     else:# main ping main
-        connectioninfo = ["35.224.121.101", 3306, "yiming", "yiming", "schedulerDB"]
+        connectioninfo = ["130.211.206.49", 3306, "yiming", "yiming123", "schedulerDB"]
         bkpstr='main'
     ping_mysql(connectioninfo,bkpstr)

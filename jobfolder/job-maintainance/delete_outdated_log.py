@@ -51,8 +51,8 @@ def del_outdate_log(readconnectioninfo, writeconnectioninfo):
     timenow = dt.datetime \
         .now(pytz.timezone('America/Chicago')) \
         .replace(tzinfo=None, microsecond=0)
-    # five_min_ago_str = (timenow - dt.timedelta(seconds=10 * 60)).strftime('%Y-%m-%d %H:%M:%S')
-    six_hours_ago_str = (timenow - dt.timedelta(hours=6)).strftime('%Y-%m-%d %H:%M:%S')
+    five_min_ago_str = (timenow - dt.timedelta(seconds=5 * 60)).strftime('%Y-%m-%d %H:%M:%S')
+    #six_hours_ago_str = (timenow - dt.timedelta(hours=6)).strftime('%Y-%m-%d %H:%M:%S')
     selejobidquery = "SELECT id FROM schedulerDB.jobchain_table WHERE tag='scheduler';"
     readcursor.execute(selejobidquery)
     tempans = readcursor.fetchall()
@@ -64,7 +64,7 @@ def del_outdate_log(readconnectioninfo, writeconnectioninfo):
     idlststr = ', '.join([str(tt) for tt in idlst])
     writecursor = writedb.cursor()
     query = "DELETE FROM schedulerDB.jobchain_lst_run WHERE jobchain_id in ({}) " \
-            "AND last_run_start < \'{}\'".format(idlststr, six_hours_ago_str)
+            "AND last_run_start < \'{}\'".format(idlststr, five_min_ago_str)
     writecursor.execute(query)
     writedb.commit()
     writecursor.close()
@@ -85,12 +85,12 @@ if __name__ == '__main__':
             raise ValueError('Unknow parameter {}'.format(sys.argv[1]))
 
     if bkp_flag == 1:  # bkp ping bkp
-        readconnectioninfo = ["35.224.121.101", 3306, "yiming", "yiming", "schedulerDB"]
-        writeconnectioninfo = ["104.197.118.95", 3306, "yiming", "yiming", "schedulerDB"]
+        readconnectioninfo = ["130.211.206.49", 3306, "yiming", "yiming123", "schedulerDB"]
+        writeconnectioninfo = ["146.148.79.143", 3306, "yiming", "yiming123", "schedulerDB"]
         bkpstr = 'bkp'
     else:  # main ping main
-        readconnectioninfo = ["35.224.121.101", 3306, "yiming", "yiming", "schedulerDB"]
-        writeconnectioninfo = ["35.224.121.101", 3306, "yiming", "yiming", "schedulerDB"]
+        readconnectioninfo = ["130.211.206.49", 3306, "yiming", "yiming123", "schedulerDB"]
+        writeconnectioninfo = ["130.211.206.49", 3306, "yiming", "yiming123", "schedulerDB"]
         bkpstr = 'main'
     del_outdate_log(readconnectioninfo, writeconnectioninfo)
     del_log_data_from_deleted_jc(readconnectioninfo, writeconnectioninfo)

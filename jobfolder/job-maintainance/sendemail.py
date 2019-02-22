@@ -40,9 +40,10 @@ def sendemail(titlestr, msgstr, receverlst=[], cclst=[], bcclst=[], attachmentls
     s.ehlo()
     s.starttls()
     s.ehlo()
-    s.login('ylscheduleremail@gmail.com', 'scheduler')
+    s.login('ylscheduleremail@gmail.com', 'eijoifazbjjfsdcl')
     s.sendmail(msg["From"], totallst, msg.as_string())
     s.quit()
 
 if __name__ == '__main__':
-    sendemail("title", 'body', ['yl3573@columbia.edu'])
+    #sendemail("title", 'body', ['yl3573@columbia.edu'])
+    sendemail("title", 'body', ['yiming@fcreekcapital.com'])

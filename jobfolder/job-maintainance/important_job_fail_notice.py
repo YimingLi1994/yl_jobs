@@ -72,7 +72,7 @@ def job_check(readconnectioninfo, writeconnectioninfo, bkpstr):
                             mailstr += 'jobchainId: {}'.format(desc_msg_tpl[0]) + ':\n' + desc_msg_tpl[1] + '\n\n'
                     sendemail.sendemail('Job with important tag failed {}'.format(mailtitle), mailstr,
                                         [
-                                         'yiming.li2@searshc.com',
+                                         'yiming@fcreekcapital.com',
                                          ])
 
     finally:
@@ -94,11 +94,11 @@ if __name__ == '__main__':
             raise ValueError('Unknow parameter {}'.format(sys.argv[1]))
 
     if bkp_flag == 1:  # bkp ping bkp
-        writeconnectioninfo = ['127.0.0.1', 3306, "root", "2212", "schedulerDB"]
-        readconnectioninfo = ['35.184.121.179', 3306, "root", "openthegate", "schedulerDB"]
+        readconnectioninfo = ["130.211.206.49", 3306, "yiming", "yiming123", "schedulerDB"]
+        writeconnectioninfo = ["146.148.79.143", 3306, "yiming", "yiming123", "schedulerDB"]
         bkpstr = 'bkp'
     else:  # main ping main
-        writeconnectioninfo = ['35.188.14.115', 3306, "root", "openthegate", "schedulerDB"]
-        readconnectioninfo = ['35.188.14.115', 3306, "root", "openthegate", "schedulerDB"]
+        readconnectioninfo = ["130.211.206.49", 3306, "yiming", "yiming123", "schedulerDB"]
+        writeconnectioninfo = ["130.211.206.49", 3306, "yiming", "yiming123", "schedulerDB"]
         bkpstr = 'main'
     job_check(readconnectioninfo, writeconnectioninfo, bkpstr)
